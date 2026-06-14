@@ -7,7 +7,7 @@ function MainLayout() {
     <div className="app-shell">
       <SiteHeader />
       <Outlet />
-      <SiteFooter />
+      {/* <SiteFooter /> */}
     </div>
   )
 }

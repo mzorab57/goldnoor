@@ -40,7 +40,7 @@
 }
 
 .hero-copy {
-  max-width: 760px;
+  max-width: 960px;
 }
 
 .eyebrow {
@@ -71,7 +71,7 @@
   display: inline-block;
   overflow: hidden;
   font-size: clamp(4.8rem, 12vw, 9.5rem);
-  font-weight: 800;
+  font-weight: 1500;
   line-height: 0.88;
   letter-spacing: -0.06em;
   color: #ffffff;

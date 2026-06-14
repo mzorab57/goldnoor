@@ -1,11 +1,12 @@
 const titleRows = [
   [
-    { text: 'Go', className: 'slide-right', delay: '0.18s' },
-    { text: 'ld', className: 'slide-left', delay: '0.28s' },
+       
+    { text: 'We', className: 'slide-right', delay: '0.18s' },
+    { text: 'make', className: 'slide-left', delay: '0.28s' },
   ],
   [
-    { text: 'No', className: 'slide-up', delay: '0.42s' },
-    { text: 'or', className: 'slide-down', delay: '0.52s' },
+    { text: 'darkness', className: 'slide-up', delay: '0.42s' },
+    { text: 'beautiful', className: 'slide-down', delay: '0.52s' },
   ],
 ]
 
