@@ -1,0 +1,79 @@
+.app-shell {
+  min-height: 100vh;
+  background: #0c1013;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  padding: 26px 0;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 16, 19, 0.84) 0%,
+    rgba(12, 16, 19, 0.18) 100%
+  );
+  backdrop-filter: blur(16px);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-transform: uppercase;
+}
+
+.pill-text,
+.site-nav-item a {
+  letter-spacing: 0.2em;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+.pill-text {
+  color: var(--gold-primary);
+  font-weight: 700;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.site-nav-item a {
+  color: rgba(255, 255, 255, 0.92);
+  transition: color 0.3s ease;
+}
+
+.site-nav-item a:hover {
+  color: var(--gold-primary);
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    padding: 18px 0;
+  }
+
+  .site-header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-nav {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+}
