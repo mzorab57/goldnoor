@@ -54,7 +54,7 @@ select {
 .site-shell {
   width: min(100%, 1320px);
   margin: 0 auto;
-  padding: 0 32px;
+  /* padding: 0 32px; */
 }
 
 .section-kicker {
@@ -69,6 +69,6 @@ select {
 
 @media (max-width: 720px) {
   .site-shell {
-    padding: 0 20px;
+    /* padding: 0 20px; */
   }
 }

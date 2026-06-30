@@ -219,7 +219,7 @@ function Product() {
                 key={product.id}
                 className={`product-cube-face product-cube-face-${faceMap[index]}`}
               >
-                <img src={product.image} alt={product.title.join(' ')} loading="lazy" className='border-8 border-mist-900 p-8 bg-linear-to-br from-bs-mist-700  to-mist-700' />
+                <img src={product.image} alt={product.title.join(' ')} loading="lazy" className="product-cube-img" />
                 <span className="product-cube-placeholder">{faceNames[index]}</span>
               </div>
             ))}
