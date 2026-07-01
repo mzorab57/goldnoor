@@ -115,45 +115,9 @@ function Quality() {
         </div>
       </section>
 
-      <section className="home-section showcase-section" id="collections">
-        <div className="site-shell showcase-grid">
-          <div className="showcase-copy quality-header-anim">
-            <span className="section-kicker">Global Infrastructure</span>
-            <h2>Illuminating cities across the world.</h2>
-            <p>
-              From the historic boulevards of Europe to the ultra-modern highways of the Middle East, Goldnoor's infrastructure collections are trusted by municipalities globally for their reliability and striking presence.
-            </p>
-          </div>
+     
 
-          <div className="showcase-panel showcase-panel-anim">
-            <span className="showcase-label">Core Capabilities</span>
-            <ul className="showcase-list">
-              <li>Smart City Integration Ready</li>
-              <li>IP66+ Weather Resistance</li>
-              <li>Custom Architectural Moulding</li>
-              <li>High-Mast Stadium Solutions</li>
-              <li>Solar & Hybrid Options</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="home-section contact-section" id="contact">
-        <div className="site-shell">
-          <div className="contact-banner overflow-hidden relative">
-            <div className="contact-banner-bg absolute inset-0 bg-gradient-to-br from-[#1a1508] to-[#000000] z-0 opacity-50"></div>
-            
-            <div className="relative z-10">
-              <span className="section-kicker text-[#d4af37]">Let's Work Together</span>
-              <h2 className="text-white mt-2">Ready to illuminate your next monumental project?</h2>
-            </div>
-
-            <a className="primary-button relative z-10" href="mailto:hello@goldnoor.com">
-              Start a Conversation
-            </a>
-          </div>
-        </div>
-      </section>
+   
     </div>
   );
 }

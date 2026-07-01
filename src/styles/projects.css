@@ -1,216 +1,236 @@
-/* ── Projects Horizontal Slider Section ─────────────────────────────────────────── */
-.projects-slider-section {
-  background-color: #000000; /* Flows nicely from FractureShowcase */
-  color: #eee8de;
+.projects-carousel-section {
+  background-color: #000000;
+  padding: 8rem 0;
+  overflow: hidden;
   position: relative;
-  /* GSAP will pin this section, no need for hardcoded overflow/height here */
 }
 
-.projects-sticky-wrapper {
-  position: relative;
-  height: 100vh;
+.projects-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.carousel-control-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(238, 232, 222, 0.7);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-control-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.3);
+  color: #d4af37;
+  transform: scale(1.05);
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background: #d4af37;
+  width: 28px;
+  border-radius: 4px;
+}
+
+.projects-carousel-wrapper {
+  display: flex;
   width: 100%;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: 8vh;
-  background: #000000;
+  padding: 2rem 0;
+  position: relative;
 }
 
-/* Absolute header that stays in place */
-.projects-slider-header {
+/* Fading edges */
+.projects-carousel-wrapper::before,
+.projects-carousel-wrapper::after {
+  content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  padding-top: 6rem;
-  z-index: 10;
+  bottom: 0;
+  width: 10vw;
+  z-index: 20;
   pointer-events: none;
 }
 
-.projects-slider-header h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  margin-top: 1rem;
+.projects-carousel-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #000000 0%, transparent 100%);
 }
 
-/* Horizontal moving container */
-.projects-slider-container {
+.projects-carousel-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #000000 0%, transparent 100%);
+}
+
+.projects-carousel-track.manual-track {
   display: flex;
-  gap: 3vw;
-  height: 60vh; /* Height of the cards */
-  padding: 0;
-  will-change: transform;
+  gap: 2rem; /* Matches the gap in JS */
+  padding-left: max(1rem, calc((100vw - 1200px) / 2)); 
+  padding-right: max(1rem, calc((100vw - 1200px) / 2));
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  min-width: max-content;
 }
 
-/* Spacers to give padding at start and end of slider */
-.projects-slide-spacer {
-  width: 15vw;
-  flex-shrink: 0;
-}
-
-@media (max-width: 1024px) {
-  .projects-slide-spacer { width: 5vw; }
-}
-
-.project-slide-card {
+.project-carousel-card {
   position: relative;
-  width: clamp(300px, 35vw, 550px);
-  height: 100%;
+  width: clamp(320px, 40vw, 550px);
+  aspect-ratio: 4/5;
   flex-shrink: 0;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   overflow: hidden;
-  cursor: pointer;
   background: #0a0d10;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+  opacity: 0.4;
+  cursor: pointer;
 }
 
-.project-slide-image-wrapper {
+.project-carousel-card.is-active {
+  opacity: 1;
+  transform: scale(1.02);
+  border-color: rgba(212, 175, 55, 0.25);
+  z-index: 5;
+}
+
+.project-carousel-image-wrapper {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
-.project-slide-image {
+.project-carousel-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.project-slide-card:hover .project-slide-image {
-  transform: scale(1.08);
+.project-carousel-card:hover .project-carousel-image,
+.project-carousel-card.is-active:hover .project-carousel-image {
+  transform: scale(1.05);
 }
 
-.project-slide-overlay {
+.project-carousel-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(5, 5, 5, 0.95) 0%,
-    rgba(5, 5, 5, 0.6) 40%,
-    rgba(5, 5, 5, 0) 100%
-  );
-  opacity: 0.9;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  opacity: 0.85;
   transition: opacity 0.5s ease;
 }
 
-.project-slide-card:hover .project-slide-overlay {
+.project-carousel-card.is-active:hover .project-carousel-overlay {
   opacity: 1;
 }
 
-.project-slide-content {
+.project-carousel-content {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2.5rem;
+  padding: 3rem;
   z-index: 10;
 }
 
-.project-slide-meta {
+.project-carousel-meta {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1rem;
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: #d4af37; /* Gold accent */
-  margin-bottom: 0.8rem;
-  transform: translateY(15px);
-  opacity: 0.8;
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  letter-spacing: 0.2em;
+  color: #d4af37;
+  margin-bottom: 1.2rem;
 }
 
-.project-slide-card:hover .project-slide-meta {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.project-slide-title {
-  font-size: clamp(1.8rem, 2.5vw, 2.5rem);
-  font-weight: 600;
+.project-carousel-title {
+  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+  font-weight: 700;
   color: #ffffff;
   margin-bottom: 0.5rem;
   line-height: 1.1;
-  letter-spacing: -0.01em;
-  transform: translateY(15px);
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-  transition-delay: 0.05s;
+  letter-spacing: -0.02em;
 }
 
-.project-slide-card:hover .project-slide-title {
-  transform: translateY(0);
-}
-
-.project-slide-location {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
+.project-carousel-location {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
   color: rgba(238, 232, 222, 0.6);
-  margin-bottom: 1.5rem;
-  transform: translateY(15px);
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-  transition-delay: 0.1s;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
 }
 
-.project-slide-card:hover .project-slide-location {
-  transform: translateY(0);
-}
-
-.project-slide-description {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: rgba(238, 232, 222, 0.7);
-  max-height: 0;
+.project-carousel-link {
+  align-self: flex-start;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.9rem 2.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  transition: all 0.4s ease;
   opacity: 0;
-  overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translateY(20px);
+  pointer-events: none;
 }
 
-.project-slide-card:hover .project-slide-description {
-  max-height: 150px;
+.project-carousel-card.is-active .project-carousel-link {
   opacity: 1;
-  margin-top: 1rem;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 720px) {
-  .projects-slider-header {
-    padding-top: 4rem;
-  }
-  
-  .projects-slider-container {
-    height: 55vh;
-    gap: 1rem;
-  }
-  
-  .project-slide-card {
-    width: 80vw;
-  }
-  
-  .project-slide-content {
-    padding: 1.5rem;
-  }
-  
-  /* On mobile, usually no hover is available, so we show the text by default */
-  .project-slide-description {
-    max-height: 150px;
-    opacity: 1;
+.project-carousel-link:hover {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .projects-pagination-controls {
+    width: 100%;
+    justify-content: flex-start;
     margin-top: 1rem;
   }
   
-  .project-slide-meta,
-  .project-slide-title,
-  .project-slide-location {
-    transform: translateY(0);
-    opacity: 1;
+  .projects-carousel-track.manual-track {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .project-carousel-card {
+    width: 85vw;
+  }
+  
+  .project-carousel-content {
+    padding: 2rem;
   }
 }

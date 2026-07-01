@@ -1,0 +1,142 @@
+.projects-page-bg {
+  background: #000000;
+  position: relative;
+}
+
+.projects-page-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 800px;
+  background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.projects-vertical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  margin-top: 4rem;
+}
+
+.project-showcase-row {
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+  position: relative;
+}
+
+.project-showcase-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.project-showcase-image {
+  flex: 1.2;
+  position: relative;
+  border-radius: 2rem;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-showcase-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.project-showcase-row:hover .project-showcase-image img {
+  transform: scale(1.05);
+}
+
+.project-image-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+}
+
+.project-showcase-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #d4af37;
+  margin-bottom: 1.5rem;
+}
+
+.project-meta .dot {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.project-title {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.project-desc {
+  font-size: 1.1rem;
+  color: rgba(238, 232, 222, 0.7);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 90%;
+}
+
+.project-explore-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 1rem 2.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.project-explore-btn:hover {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #000;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .project-showcase-row,
+  .project-showcase-row.reverse {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .project-showcase-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+  }
+  
+  .project-showcase-content {
+    padding: 0;
+  }
+  
+  .project-desc {
+    max-width: 100%;
+  }
+  
+  .projects-vertical-list {
+    gap: 6rem;
+  }
+}

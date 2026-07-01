@@ -25,23 +25,34 @@
   gap: 20px;
 }
 
-.brand-pills {
+.brand-logo-container {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  text-transform: uppercase;
+  align-items: center;
 }
 
-.pill-text,
-.site-nav-item a {
-  letter-spacing: 0.2em;
+.site-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.site-logo:hover {
+  transform: scale(1.05);
+}
+
+.site-nav-item .nav-link {
+  letter-spacing: 0.15em;
   font-size: 0.76rem;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+  text-decoration: none;
 }
 
-.pill-text {
-  color: var(--gold-primary);
-  font-weight: 700;
+.site-nav-item .nav-link:hover,
+.site-nav-item .nav-link.active {
+  color: var(--gold-primary, #d4af37);
 }
 
 .site-nav {
@@ -53,14 +64,7 @@
   list-style: none;
 }
 
-.site-nav-item a {
-  color: rgba(255, 255, 255, 0.92);
-  transition: color 0.3s ease;
-}
-
-.site-nav-item a:hover {
-  color: var(--gold-primary);
-}
+/* removed old link styles */
 
 @media (max-width: 720px) {
   .site-header {

@@ -3,6 +3,8 @@ import Product from '../components/sections/home/Product'
 import FractureShowcase from '../components/sections/home/FractureShowcase'
 import Projects from '../components/sections/home/Projects'
 import Quality from '../components/sections/home/Quality'
+import Infrastructure from '../components/sections/home/Infrastructure'
+import SiteFooter from '../components/common/SiteFooter' 
 
 function Home() {
   return (
@@ -10,8 +12,12 @@ function Home() {
       <HomeHero />
       <Product />
       <FractureShowcase />
-      <Projects />
       <Quality />
+      <Projects />
+      <Infrastructure />
+     
+      
+   
     </main>
   )
 }

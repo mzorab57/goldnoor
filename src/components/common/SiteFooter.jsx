@@ -1,26 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-
-const footerLinks = [
-  { label: 'Instagram', href: 'https://instagram.com' },
-  { label: 'WhatsApp', href: 'https://wa.me/' },
-  { label: 'Email', href: 'mailto:hello@goldnoor.com' },
-]
-
-const featureCards = [
-  {
-    title: 'Premium Identity',
-    text: 'A luxurious dark-and-gold visual tone built to feel elegant, bold, and memorable.',
-  },
-  {
-    title: 'Flexible Structure',
-    text: 'Reusable sections and route-ready architecture that keep future growth simple.',
-  },
-]
+import React, { useEffect, useRef } from 'react'
 
 function SiteFooter() {
   const footerRef = useRef(null)
   const canvasRef = useRef(null)
-  const [goldMode, setGoldMode] = useState(true)
 
   useEffect(() => {
     const section = footerRef.current
@@ -62,9 +44,8 @@ function SiteFooter() {
       }
 
       draw() {
-        context.fillStyle = goldMode
-          ? `rgba(243, 192, 66, ${this.opacity})`
-          : `rgba(194, 204, 255, ${this.opacity})`
+        // Goldnoor gold color particles
+        context.fillStyle = `rgba(212, 175, 55, ${this.opacity})`
         context.fillRect(this.x, this.y, this.size, this.size * 3.2)
       }
     }
@@ -104,14 +85,10 @@ function SiteFooter() {
       window.removeEventListener('resize', resizeCanvas)
       window.cancelAnimationFrame(animationFrameId)
     }
-  }, [goldMode])
+  }, [])
 
   return (
-    <footer
-      ref={footerRef}
-      className={`site-footer ${goldMode ? 'site-footer-gold' : 'site-footer-ice'}`}
-      id="footer"
-    >
+    <footer ref={footerRef} className="site-footer" id="footer">
       <canvas
         ref={canvasRef}
         className="footer-particle-canvas"
@@ -121,70 +98,68 @@ function SiteFooter() {
       <div className="footer-spotlight" aria-hidden="true">
         <div />
         <div />
-        <div />
       </div>
 
-      <div className="footer-accent-lines" aria-hidden="true">
-        <div>
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
+      <div className="site-shell footer-content-wrapper relative z-10">
+        <div className="footer-main-layout">
+          {/* Left Column - Brand */}
+          <div className="footer-brand-col">
+            <h2 className="footer-logo">
+              goldnoor<br />
+              <span>lighting industries</span>
+            </h2>
+            <p className="footer-mission">
+              We are the realization of a beautiful and lasting dream in the heart of darkness — designing and manufacturing premium outdoor lighting and urban furniture.
+            </p>
+          </div>
+
+          {/* Right Columns - Links */}
+          <div className="footer-links-grid">
+            <div className="footer-col">
+              <h4 className="footer-col-title">Collections</h4>
+              <ul className="footer-nav-list">
+                <li><a href="#park">Park Lights</a></li>
+                <li><a href="#classic">Classic Lights</a></li>
+                <li><a href="#street">Street Lights</a></li>
+                <li><a href="#lawn">Lawn Lights</a></li>
+                <li><a href="#trash">Trash & Benches</a></li>
+                <li><a href="#urban">Urban Furniture</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4 className="footer-col-title">Company</h4>
+              <ul className="footer-nav-list">
+                <li><a href="#about">About</a></li>
+                <li><a href="#why">Why Goldnoor</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4 className="footer-col-title">Connect</h4>
+              <ul className="footer-nav-list">
+                <li><a href="mailto:info@goldnoor.co">info@goldnoor.co</a></li>
+                <li><a href="https://www.goldnoor.co" target="_blank" rel="noreferrer">www.goldnoor.co</a></li>
+                <li><a href="tel:+9647701571507">+964 770 157 1507</a></li>
+              </ul>
+              
+              <h4 className="footer-col-title footer-mt-extra">Socials</h4>
+              <ul className="footer-nav-list">
+                <li><a href="https://www.instagram.com/goldnoor.co/" target="_blank" rel="noreferrer">Instagram</a></li>
+                <li><a href="https://web.facebook.com/goldnoor.co" target="_blank" rel="noreferrer">Facebook</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div>
-          <div />
-          <div />
-          <div />
-          <div />
+
+        <div className="footer-bottom-row">
+          <p className="footer-copyright">
+            © {new Date().getFullYear()} Goldnoor Lighting Industries. All rights reserved.
+          </p>
         </div>
       </div>
-
-      <div className="site-shell footer-header">
-        <h2 className="footer-brand">
-          <a href="/">GoldNoor</a>
-        </h2>
-
-        <button
-          type="button"
-          className="footer-mid-spot"
-          aria-label="Toggle footer glow"
-          aria-pressed={goldMode}
-          onClick={() => setGoldMode((current) => !current)}
-        />
-
-        <a className="footer-contact-btn" href="mailto:hello@goldnoor.com">
-          <span className="footer-glow" />
-          <span className="footer-contact-content">Contact Us</span>
-        </a>
-      </div>
-
-      <div className="footer-hero-sub">
-        <p>Introducing</p>
-      </div>
-
-      <div className="footer-hero">
-        <div className="footer-hero-title">
-          <h2>GoldNoor</h2>
-          <h2>GoldNoor</h2>
-        </div>
-      </div>
-
-      <p className="footer-hero-copy">
-        Premium metal identity,
-        <br />
-        powered by modern structure + elegant design.
-      </p>
-
-      <div className="footer-mountains" aria-hidden="true">
-        <div />
-        <div />
-        <div />
-      </div>
-
-      
-
-   
     </footer>
   )
 }
