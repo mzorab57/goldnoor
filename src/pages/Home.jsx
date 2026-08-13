@@ -12,9 +12,9 @@ function Home() {
       <HomeHero />
       <Product />
       <FractureShowcase />
-      <Quality />
+      {/* <Quality /> */}
       <Projects />
-      <Infrastructure />
+      {/* <Infrastructure /> */}
      
       
    

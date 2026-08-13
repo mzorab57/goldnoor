@@ -1,4 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import parkLight  from '../../../assets/products/park-light.png'
+import classicLight  from '../../../assets/products/classic-light.png'
+import classic2  from '../../../assets/products/classic2.png'
+import lawnLight  from '../../../assets/products/lawan-light.png'
+import streetLight  from '../../../assets/products/street-light.png'
+import benches  from '../../../assets/products/beches.png'
+import urbanFurniture  from '../../../assets/products/urban.png'
 
 const faceNames = [
   'Park Lights',
@@ -35,7 +42,7 @@ const products = [
     align: 'left',
     cta: 'Explore',
     image:
-      'https://kimi-web-img.moonshot.cn/img/xeratech.in/6af4859eeee00fc47c84a73ab0f536f38614dd11.jpg',
+      parkLight,
   },
   {
     id: 'classic-lights',
@@ -50,7 +57,7 @@ const products = [
     align: 'right',
     cta: 'Turn',
     image:
-      'https://kimi-web-img.moonshot.cn/img/image.made-in-china.com/de8c155f035a2af07e969e7c84b160849f6b6b76.webp',
+      classicLight,
   },
   {
     id: 'street-lights',
@@ -65,7 +72,7 @@ const products = [
     align: 'left',
     cta: 'Turn',
     image:
-      'https://kimi-web-img.moonshot.cn/img/image.made-in-china.com/9fd389e80efd71617836193c06777304fd672d5a.webp',
+      streetLight,
   },
   {
     id: 'lawn-lights',
@@ -81,7 +88,7 @@ const products = [
     align: 'right',
     cta: 'Turn',
     image:
-      'https://kimi-web-img.moonshot.cn/img/tekled.co.uk/dd38fc4957eae27ce5ac362dbd6871cedd9b4b22.webp',
+      lawnLight,
   },
   {
     id: 'trash-benches',
@@ -96,7 +103,7 @@ const products = [
     align: 'left',
     cta: 'Turn',
     image:
-      'https://kimi-web-img.moonshot.cn/img/img.archiexpo.com/2fa5145e39cefc05cb1341ae21a8c62e53cced99.jpg',
+      benches,
   },
   {
     id: 'urban-furniture',
@@ -111,7 +118,7 @@ const products = [
     align: 'right',
     cta: 'Begin Again',
     image:
-      'https://kimi-web-img.moonshot.cn/img/image.made-in-china.com/968135a394df213ce319fa71258b6880a4401365.webp',
+      urbanFurniture,
   },
 ]
 
@@ -219,7 +226,7 @@ function Product() {
                 key={product.id}
                 className={`product-cube-face product-cube-face-${faceMap[index]}`}
               >
-                <img src={product.image} alt={product.title.join(' ')} loading="lazy" className="product-cube-img" />
+                <img src={product.image} alt={product.title.join(' ')} loading="lazy" className="product-cube-img " />
                 <span className="product-cube-placeholder">{faceNames[index]}</span>
               </div>
             ))}

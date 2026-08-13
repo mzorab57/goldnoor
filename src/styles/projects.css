@@ -215,6 +215,10 @@
 }
 
 @media (max-width: 768px) {
+  .projects-carousel-section {
+    padding: 5rem 0;
+  }
+  
   .projects-pagination-controls {
     width: 100%;
     justify-content: flex-start;
