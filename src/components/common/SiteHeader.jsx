@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const navItems = [
@@ -13,7 +13,9 @@ const navItems = [
 function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const location = useLocation();
+  const lastScrollY = useRef(0);
 
   const handleNavClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -37,15 +39,35 @@ function SiteHeader() {
   // Add background blur on scroll
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+
+      setIsScrolled(currentScrollY > 50);
+
+      if (currentScrollY <= 32) {
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY.current + 8) {
+        setIsHeaderVisible(false);
+      } else if (currentScrollY < lastScrollY.current - 8) {
+        setIsHeaderVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
     };
+
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      setIsHeaderVisible(true);
+    }
+  }, [isMobileMenuOpen]);
+
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full z-9999 transition-all  duration-500 ease-in-out ${isScrolled ? 'py-4' : 'py-6 md:py-8'}`}>
+      <header className={`fixed top-0 left-0 w-full z-9999 transition-all duration-500 ease-in-out ${isHeaderVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'} ${isScrolled ? 'py-4' : 'py-6 md:py-8'}`}>
         <div className="w-full px-2">
           
           {/* Main Navbar Pill */}

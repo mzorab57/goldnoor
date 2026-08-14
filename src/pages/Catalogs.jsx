@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 // دڵنیابە لەم لینکەی خوارەوە بۆ وێنەکەت
 import parkLight from '../assets/products/park-light.png' 
@@ -144,8 +143,8 @@ function Catalogs() {
             {/* Buttons Layout */}
             <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
               
-              <a 
-                href="/GOLDNOOR_2026_Catalog.pdf" 
+              <a
+                href="/GOLDNOOR%202026.pdf"
                 target="_blank" 
                 rel="noreferrer"
                 className="group relative overflow-hidden bg-[#f3c042] text-black px-8 py-4 md:py-5 rounded-sm tracking-[0.2em] text-xs font-bold uppercase transition-all shadow-[0_0_20px_rgba(243,192,66,0.15)] hover:shadow-[0_0_30px_rgba(243,192,66,0.4)] text-center w-full sm:w-auto min-w-55"
@@ -159,8 +158,8 @@ function Catalogs() {
                 <div className="absolute inset-0 bg-white/30 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
               </a>
               
-              <a 
-                href="/GOLDNOOR_2026_Catalog.pdf" 
+              <a
+                href="/GOLDNOOR%202026.pdf"
                 download
                 className="group relative overflow-hidden bg-transparent border border-white/20 hover:border-[#f3c042]/50 text-white px-8 py-4 md:py-5 rounded-sm tracking-[0.2em] text-xs font-bold uppercase transition-colors text-center w-full sm:w-auto min-w-55 backdrop-blur-sm"
               >

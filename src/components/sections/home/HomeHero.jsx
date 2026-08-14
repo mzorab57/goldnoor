@@ -12,6 +12,8 @@ const titleRows = [
 
 const scrollLines = ['Scroll to', 'discover more']
 const currentYear = new Date().getFullYear()
+const heroVideoWebm = '/assets/videos/fossil.webm'
+const heroVideoMp4 = '/assets/videos/fossil (1).mp4'
 
 function HomeHero() {
   return (
@@ -22,12 +24,14 @@ function HomeHero() {
         muted
         loop
         playsInline
+        preload="auto"
+        // poster="/logo.jpg"
+        disablePictureInPicture
+        disableRemotePlayback
         aria-hidden="true"
       >
-        <source
-          src="https://cdn.zajno.com/dev/codepen/fossil/fossil.mp4"
-          type="video/mp4"
-        />
+        <source src={heroVideoWebm} type="video/webm" />
+        <source src={heroVideoMp4} type="video/mp4" />
       </video>
 
       <div className="hero-overlay" aria-hidden="true" />
