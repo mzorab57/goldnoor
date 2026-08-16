@@ -125,13 +125,13 @@ function SiteHeader() {
             {/* Mobile Hamburger Button */}
             <div className="flex-1 flex justify-end xl:hidden">
               <button 
-                className="flex flex-col justify-center items-end w-10 h-10 gap-1.25 focus:outline-none group relative z-[9999]"
+                className="flex flex-col justify-center items-end w-10 h-10 gap-1.25 focus:outline-none group relative z-9999"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle Menu"
               >
-                <span className={`block h-0.5 bg-white transition-all duration-300 ease-out ${isMobileMenuOpen ? 'w-6 rotate-45 translate-y-[7px]' : 'w-7 group-hover:w-6'}`} />
+                <span className={`block h-0.5 bg-white transition-all duration-300 ease-out ${isMobileMenuOpen ? 'w-6 rotate-45 translate-y-1.75' : 'w-7 group-hover:w-6'}`} />
                 <span className={`block h-0.5 bg-white transition-all duration-300 ease-out ${isMobileMenuOpen ? 'w-0 opacity-0' : 'w-5 group-hover:w-7'}`} />
-                <span className={`block h-0.5 bg-white transition-all duration-300 ease-out ${isMobileMenuOpen ? 'w-6 -rotate-45 -translate-y-[7px]' : 'w-6 group-hover:w-5'}`} />
+                <span className={`block h-0.5 bg-white transition-all duration-300 ease-out ${isMobileMenuOpen ? 'w-6 -rotate-45 -translate-y-1.75' : 'w-6 group-hover:w-5'}`} />
               </button>
             </div>
 

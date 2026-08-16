@@ -25,7 +25,7 @@ function Contacts() {
     <main className="min-h-screen bg-[#030303] relative overflow-hidden font-sans selection:bg-[#f3c042] selection:text-black flex items-center">
       
       {/* 1. Ambient Background Lighting (شێوازی ڕووناکی ئاڵتونی) */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#f3c042]/10 via-[#f3c042]/0 to-transparent blur-3xl pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+      <div className="absolute top-0 right-0 w-200 h-200 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-[#f3c042]/10 via-[#f3c042]/0 to-transparent blur-3xl pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
       
       {/* Architectural Grid (هێڵی تەلارسازی زۆر کاڵ) */}
       <div 
@@ -48,7 +48,7 @@ function Contacts() {
           {/* Left Column: Big Statement */}
           <div className="lg:col-span-7 flex flex-col justify-center">
             <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
-              <span className="w-12 h-[1px] bg-[#f3c042]"></span>
+              <span className="w-12 h-px bg-[#f3c042]"></span>
               <span className="text-[#f3c042] tracking-[0.3em] text-xs font-bold uppercase">Get In Touch</span>
             </motion.div>
             
@@ -79,7 +79,7 @@ function Contacts() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 12h16m0 0l-6-6m6 6l-6 6" />
                   </svg>
                 </a>
-                <motion.div variants={lineReveal} className="absolute -bottom-4 left-0 w-full h-[1px] bg-white/10 origin-left"></motion.div>
+                <motion.div variants={lineReveal} className="absolute -bottom-4 left-0 w-full h-px bg-white/10 origin-left"></motion.div>
               </motion.div>
 
               {/* Item: Phone */}
@@ -91,7 +91,7 @@ function Contacts() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 12h16m0 0l-6-6m6 6l-6 6" />
                   </svg>
                 </a>
-                <motion.div variants={lineReveal} className="absolute -bottom-4 left-0 w-full h-[1px] bg-white/10 origin-left"></motion.div>
+                <motion.div variants={lineReveal} className="absolute -bottom-4 left-0 w-full h-px bg-white/10 origin-left"></motion.div>
               </motion.div>
 
               {/* Item: Website */}
@@ -103,7 +103,7 @@ function Contacts() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </a>
-                <motion.div variants={lineReveal} className="absolute -bottom-4 left-0 w-full h-[1px] bg-white/10 origin-left"></motion.div>
+                <motion.div variants={lineReveal} className="absolute -bottom-4 left-0 w-full h-px bg-white/10 origin-left"></motion.div>
               </motion.div>
 
             </div>
@@ -121,7 +121,7 @@ function Contacts() {
                   className="group relative w-16 h-16 rounded-full border border-white/10 bg-white/5 flex items-center justify-center overflow-hidden transition-all duration-500 hover:border-[#f3c042]/50"
                   aria-label="Instagram"
                 >
-                  <div className="absolute inset-0 bg-[#f3c042] translate-y-[100%] rounded-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                  <div className="absolute inset-0 bg-[#f3c042] translate-y-full rounded-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
                   <svg className="w-6 h-6 text-white group-hover:text-black transition-colors duration-500 relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -137,7 +137,7 @@ function Contacts() {
                   className="group relative w-16 h-16 rounded-full border border-white/10 bg-white/5 flex items-center justify-center overflow-hidden transition-all duration-500 hover:border-[#f3c042]/50"
                   aria-label="Facebook"
                 >
-                  <div className="absolute inset-0 bg-[#f3c042] translate-y-[100%] rounded-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                  <div className="absolute inset-0 bg-[#f3c042] translate-y-full rounded-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
                   <svg className="w-6 h-6 text-white group-hover:text-black transition-colors duration-500 relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                   </svg>
