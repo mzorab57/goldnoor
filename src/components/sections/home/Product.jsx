@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import parkLight  from '../../../assets/products/park-light.png'
-import classicLight  from '../../../assets/products/classic-light.png'
-import classic2  from '../../../assets/products/classic2.png'
-import lawnLight  from '../../../assets/products/lawan-light.png'
-import streetLight  from '../../../assets/products/street-light.png'
-import benches  from '../../../assets/products/beches.png'
-import urbanFurniture  from '../../../assets/products/urban.png'
+import parkLight from '../../../assets/products/park-light.png'
+import classicLight from '../../../assets/products/classic-light.png'
+import classic2 from '../../../assets/products/classic2.png'
+import lawnLight from '../../../assets/products/lawan-light.png'
+import streetLight from '../../../assets/products/street-light.png'
+import benches from '../../../assets/products/beches.png'
+import urbanFurniture from '../../../assets/products/urban.png'
 
 const faceNames = [
   'Park Lights',
@@ -32,8 +32,7 @@ const products = [
     id: 'park-lights',
     tag: 'GoldNoor Outdoor Collection',
     title: ['Park', 'Lights'],
-    body:
-      'Modern decorative poles and arms that bring identity and warmth to public parks, walkways, and residential landscapes.',
+    body: 'Modern decorative poles and arms that bring identity and warmth to public parks, walkways, and residential landscapes.',
     stats: [
       { value: '32', label: 'Models' },
       { value: '360', label: 'Degrees' },
@@ -41,45 +40,39 @@ const products = [
     ],
     align: 'left',
     cta: 'Explore',
-    image:
-      parkLight,
+    image: parkLight,
   },
   {
     id: 'classic-lights',
     tag: '01 Heritage Collection',
     title: ['Classic', 'Lights'],
-    body:
-      'Authentic cast lanterns and decorated columns for gardens, heritage districts, and architectural projects that need timeless elegance.',
+    body: 'Authentic cast lanterns and decorated columns for gardens, heritage districts, and architectural projects that need timeless elegance.',
     stats: [
       { value: '21', label: 'Models' },
       { value: '100', label: 'Years Style' },
     ],
     align: 'right',
     cta: 'Turn',
-    image:
-      classicLight,
+    image: classicLight,
   },
   {
     id: 'street-lights',
     tag: '02 Urban Collection',
     title: ['Street', 'Lights'],
-    body:
-      'Robust street poles and high-mast solutions designed for highways, boulevards, and demanding urban infrastructure projects.',
+    body: 'Robust street poles and high-mast solutions designed for highways, boulevards, and demanding urban infrastructure projects.',
     stats: [
       { value: '21', label: 'Models' },
       { value: 'IP66', label: 'Rated' },
     ],
     align: 'left',
     cta: 'Turn',
-    image:
-      streetLight,
+    image: streetLight,
   },
   {
     id: 'lawn-lights',
     tag: '03 Garden Collection',
     title: ['Lawn', 'Lights'],
-    body:
-      'Contemporary bollards and pathway lights that softly guide movement through gardens, courtyards, and carefully designed outdoor spaces.',
+    body: 'Contemporary bollards and pathway lights that softly guide movement through gardens, courtyards, and carefully designed outdoor spaces.',
     stats: [
       { value: '18', label: 'Models' },
       { value: 'LED', label: 'Efficient' },
@@ -87,38 +80,33 @@ const products = [
     ],
     align: 'right',
     cta: 'Turn',
-    image:
-      lawnLight,
+    image: lawnLight,
   },
   {
     id: 'trash-benches',
     tag: '04 Urban Furniture',
     title: ['Trash and', 'Benches'],
-    body:
-      'Coordinated benches, chairs, and waste bins that complete a unified streetscape with weather-resistant materials and clean finishing.',
+    body: 'Coordinated benches, chairs, and waste bins that complete a unified streetscape with weather-resistant materials and clean finishing.',
     stats: [
       { value: '4', label: 'Models' },
       { value: 'SS', label: 'Steel' },
     ],
     align: 'left',
     cta: 'Turn',
-    image:
-      benches,
+    image: benches,
   },
   {
     id: 'urban-furniture',
     tag: '05 Accessories',
     title: ['Urban', 'Furniture'],
-    body:
-      'High-mast light towers, flag poles, and display structures engineered to become durable landmarks in plazas and civic spaces.',
+    body: 'High-mast light towers, flag poles, and display structures engineered to become durable landmarks in plazas and civic spaces.',
     stats: [
       { value: '5', label: 'Models' },
       { value: '40m', label: 'Max Height' },
     ],
     align: 'right',
     cta: 'Begin Again',
-    image:
-      urbanFurniture,
+    image: urbanFurniture,
   },
 ]
 
@@ -126,50 +114,91 @@ const easeInOut = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)
 
 function Product() {
   const rootRef = useRef(null)
+  
+  // Refs بۆ دەستکاری کردنی ڕاستەوخۆی DOM بۆ ئەوەی ڕێگری لە Re-render ی ڕیاکت بکەین
+  const cubeRef = useRef(null)
+  const percentTextRef = useRef(null)
+  const barFillRef = useRef(null)
+  const stopIndexRef = useRef(null)
+  
+  // State تەنها بۆ ئەو شتانەی پێویستە بگۆڕێن (وەک گۆڕینی سێکشنەکان کە زۆر کەم ڕوودەدات)
   const [activeIndex, setActiveIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
   const [theme, setTheme] = useState('gold')
+
+  // گۆڕاوەکان بۆ دروستکردنی ئەنیمەیشنی نەرم (Smooth Scroll / Lerp)
+  const scrollData = useRef({ current: 0, target: 0 })
+  const requestRef = useRef(null)
 
   const sectionIds = useMemo(
     () => products.map((product) => `product-section-${product.id}`),
-    [],
+    []
   )
 
   useEffect(() => {
     const root = rootRef.current
-    if (!root) {
-      return undefined
-    }
+    if (!root) return
 
     const sections = Array.from(root.querySelectorAll('.product-showcase-panel'))
     const revealItems = Array.from(root.querySelectorAll('.product-reveal'))
 
-    const updateState = () => {
+    // 1. حسابکردنی Target Progress لەسەر سکڕۆڵ (بەبێ ڕیاکت ستەیت)
+    const handleScroll = () => {
       const rootRect = root.getBoundingClientRect()
       const totalScrollable = Math.max(rootRect.height - window.innerHeight, 1)
-      const rawProgress = Math.min(
-        Math.max((-rootRect.top || 0) / totalScrollable, 0),
-        1,
-      )
-      const currentIndex = Math.min(
-        products.length - 1,
-        Math.max(
-          0,
-          sections.findIndex((section) => {
-            const rect = section.getBoundingClientRect()
-            return rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.45
-          }),
-        ),
-      )
-
-      setProgress(rawProgress)
-      setActiveIndex(currentIndex === -1 ? 0 : currentIndex)
+      const rawProgress = Math.min(Math.max((-rootRect.top || 0) / totalScrollable, 0), 1)
+      scrollData.current.target = rawProgress
     }
 
-    const handleScroll = () => {
-      window.requestAnimationFrame(updateState)
+    // 2. ئەنیمەیشن لووپ (60 FPS) بۆ نوێکردنەوەی شێوەکان بە نەرمی
+    const renderLoop = () => {
+      // Lerp (Linear Interpolation) - بۆ نەرمکردنی جوڵەکە
+      scrollData.current.current += (scrollData.current.target - scrollData.current.current) * 0.08
+      const p = scrollData.current.current
+
+      // حیسابکردنی جوڵەی سێجاکە
+      const t = p * (cubeStops.length - 1)
+      const i = Math.min(Math.floor(t), cubeStops.length - 2)
+      const blend = easeInOut(t - i)
+      const from = cubeStops[i]
+      const to = cubeStops[i + 1]
+      const rx = from.rx + (to.rx - from.rx) * blend
+      const ry = from.ry + (to.ry - from.ry) * blend
+
+      const stopIndex = Math.min(cubeStops.length - 1, Math.round(p * (cubeStops.length - 1)))
+      const pct = String(Math.round(p * 100))
+
+      // گۆڕینی DOM ڕاستەوخۆ خێراترین ڕێگایە لە مۆبایل
+      if (cubeRef.current) {
+        cubeRef.current.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`
+      }
+      if (percentTextRef.current) {
+        percentTextRef.current.innerText = `${pct.padStart(3, '0')}%`
+      }
+      if (barFillRef.current) {
+        barFillRef.current.style.width = `${pct}%`
+      }
+      if (stopIndexRef.current) {
+        stopIndexRef.current.innerText = String(stopIndex + 1).padStart(2, '0')
+      }
+
+      requestRef.current = requestAnimationFrame(renderLoop)
     }
 
+    // 3. ئۆبزێرڤەر بۆ ئەکتیڤکردنی دەقەکان (بۆ ئەوەی پێویست بە حیساباتی ئاڵۆز نەکات لە سکڕۆڵدا)
+    const activeSectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = sections.indexOf(entry.target)
+            if (index !== -1) setActiveIndex(index)
+          }
+        })
+      },
+      { threshold: 0.45 }
+    )
+    sections.forEach((s) => activeSectionObserver.observe(s))
+
+    // 4. ئۆبزێرڤەر بۆ دەرکەوتنی دەقەکان (Reveal)
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -179,54 +208,47 @@ function Product() {
           }
         })
       },
-      { threshold: 0.16 },
+      { threshold: 0.16 }
     )
-
     revealItems.forEach((item) => revealObserver.observe(item))
 
-    updateState()
+    // دەستپێکردن
     window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
+    window.addEventListener('resize', handleScroll, { passive: true })
+    handleScroll() // Initial calc
+    requestRef.current = requestAnimationFrame(renderLoop)
 
+    // پاککردنەوە
     return () => {
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleScroll)
+      cancelAnimationFrame(requestRef.current)
+      activeSectionObserver.disconnect()
       revealObserver.disconnect()
     }
   }, [])
 
-  const stopIndex = Math.min(
-    cubeStops.length - 1,
-    Math.round(progress * (cubeStops.length - 1)),
-  )
-
-  const cubeTransform = useMemo(() => {
-    const t = progress * (cubeStops.length - 1)
-    const i = Math.min(Math.floor(t), cubeStops.length - 2)
-    const blend = easeInOut(t - i)
-    const from = cubeStops[i]
-    const to = cubeStops[i + 1]
-    const rx = from.rx + (to.rx - from.rx) * blend
-    const ry = from.ry + (to.ry - from.ry) * blend
-
-    return `rotateX(${rx}deg) rotateY(${ry}deg)`
-  }, [progress])
-
   return (
     <section
       ref={rootRef}
-      className={`product-showcase  product-theme-${theme}`}
+      className={`product-showcase product-theme-${theme}`}
       id="collections"
     >
       <div className="product-showcase-sticky">
         <div className="product-showcase-scene" aria-hidden="true">
-          <div className="product-cube" style={{ transform: cubeTransform }}>
+          {/* بەکارهێنانی Ref لەبری State بۆ سێجاکە */}
+          <div ref={cubeRef} className="product-cube">
             {products.map((product, index) => (
               <div
                 key={product.id}
                 className={`product-cube-face product-cube-face-${faceMap[index]}`}
               >
-                <img src={product.image} alt={product.title.join(' ')} loading="lazy" className="product-cube-img " />
+                <img
+                  src={product.image}
+                  alt={product.title.join(' ')}
+                  loading="lazy"
+                  className="product-cube-img"
+                />
                 <span className="product-cube-placeholder">{faceNames[index]}</span>
               </div>
             ))}
@@ -234,14 +256,12 @@ function Product() {
         </div>
 
         <div className="product-showcase-hud">
-          <div className="product-showcase-pct">
-            {String(Math.round(progress * 100)).padStart(3, '0')}%
+          {/* بەکارهێنانی Ref بۆ دەقەکان */}
+          <div ref={percentTextRef} className="product-showcase-pct">
+            000%
           </div>
           <div className="product-showcase-bar">
-            <div
-              className="product-showcase-bar-fill"
-              style={{ width: `${Math.round(progress * 100)}%` }}
-            />
+            <div ref={barFillRef} className="product-showcase-bar-fill" />
           </div>
           <div className="product-showcase-label">{faceNames[activeIndex]}</div>
         </div>
@@ -267,8 +287,8 @@ function Product() {
         </button>
 
         <div className="product-face-caption" aria-live="polite">
-          <div className="product-face-caption-num">
-            {String(stopIndex + 1).padStart(2, '0')}
+          <div ref={stopIndexRef} className="product-face-caption-num">
+            01
           </div>
           <div className="product-face-caption-name">{faceNames[activeIndex]}</div>
         </div>

@@ -1,6 +1,7 @@
+import { useEffect, useRef } from 'react'
+
 const titleRows = [
   [
-       
     { text: 'We', className: 'slide-right', delay: '0.18s' },
     { text: 'make', className: 'slide-left', delay: '0.28s' },
   ],
@@ -10,22 +11,49 @@ const titleRows = [
   ],
 ]
 
-const scrollLines = ['Scroll to', 'discover more']
+
+const scrollLines = ['Illuminating', 'The Future']
 const currentYear = new Date().getFullYear()
+
+// تێبینی: باشترە ناوی فایلەکان بۆشایی (space) و کەوانەی تێدا نەبێت
 const heroVideoWebm = '/assets/videos/fossil.webm'
-const heroVideoMp4 = '/assets/videos/fossil (1).mp4'
+const heroVideoMp4 = '/assets/videos/fossil (1).mp4' 
 
 function HomeHero() {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) {
+      // ئەمە زۆر گرنگە بۆ ئایفۆن بۆ ئەوەی دڵنیابێتەوە کە ڤیدیۆکە بێدەنگە پێش ئیشپێکردنی
+      video.defaultMuted = true
+      video.muted = true
+      
+      // بۆ ئەوەی لە ئایفۆن نەچێتە شاشەی گەورە (Fullscreen)
+      video.setAttribute('playsinline', '') 
+
+      // بە زۆر ئیشپێکردنی ڤیدیۆکە
+      const playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.log("Autoplay was prevented by Safari:", error)
+        })
+      }
+    }
+  }, [])
+
   return (
     <section className="hero-section">
       <video
+        ref={videoRef}
         className="hero-video"
         autoPlay
         muted
+        defaultMuted // ئەمە کلیلی چارەسەرەکەیە لە ڕیاکت بۆ ئایفۆن
         loop
-        playsInline
+        playsInline // ئەمەیان ڕێگری دەکات لە کردنەوەی بە فول سکرین لە ئایفۆن
         preload="auto"
-        // poster="/logo.jpg"
+        // poster="/logo.jpg" // زۆر گرنگە ئەمە لابەریت لە کۆمێنت و وێنەیەکی بۆ دابنێیت (لە خوارەوە ڕوونم کردووەتەوە بۆچی)
         disablePictureInPicture
         disableRemotePlayback
         aria-hidden="true"
@@ -38,10 +66,6 @@ function HomeHero() {
 
       <div className="site-shell hero-content">
         <div className="hero-copy">
-          {/* <div className="eyebrow hero-reveal hero-reveal-up">
-            Gold-plated visual identity for premium industrial branding
-          </div> */}
-
           <div className="hero-title" aria-label="Gold Noor">
             {titleRows.map((row, rowIndex) => (
               <div key={rowIndex} className="hero-title-row">
@@ -57,20 +81,9 @@ function HomeHero() {
               </div>
             ))}
           </div>
-
-          {/* <p className="hero-lead hero-reveal hero-reveal-up delay-2">
-            Modern metal solutions with a bold visual language, luxurious gold
-            contrast, and a strong premium presence.
-          </p> */}
-
-       
         </div>
 
-     
-
-        <div className="hero-meta hero-reveal hero-reveal-up delay-4">
-          <span>{currentYear} all rights reserved</span>
-        </div>
+      
 
         <div className="hero-scroll hero-reveal hero-reveal-up delay-5">
           {scrollLines.map((line) => (

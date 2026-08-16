@@ -18,13 +18,17 @@ function SiteHeader() {
   const lastScrollY = useRef(0);
 
   const handleNavClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsHeaderVisible(true);
+    setIsMobileMenuOpen(false);
   };
 
-  // Close mobile menu on route change
+  // Reset scroll position on route change
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    lastScrollY.current = 0;
+    setIsHeaderVisible(true);
     setIsMobileMenuOpen(false);
-  }, [location]);
+  }, [location.pathname]);
 
   // Prevent background scrolling when menu is open
   useEffect(() => {
